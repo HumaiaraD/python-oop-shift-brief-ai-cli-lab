@@ -28,7 +28,14 @@ class ShiftBriefCLI:
         - Include the available commands.
         """
         # TODO: Print welcome text and command help.
-        pass
+        print("Welcome to the Shift Handoff Brief CLI!")
+        print("Available commands:")
+        print("  brief <shift notes> - Create a new handoff brief")
+        print("  revise <feedback> - Revise the previous handoff brief")
+        print("  history - Show conversation history")
+        print("  reset - Clear conversation history")
+        print("  help - Show this help message")
+        print("  exit or quit - Exit the application")
 
     def command_help(self):
         """
@@ -44,7 +51,15 @@ class ShiftBriefCLI:
         - quit
         """
         # TODO: Return a string describing the available commands.
-        pass
+        return (
+            "Available commands:\n"
+            "  brief <shift notes> - Create a new handoff brief\n"
+            "  revise <feedback> - Revise the previous handoff brief\n"
+            "  history - Show conversation history\n"
+            "  reset - Clear conversation history\n"
+            "  help - Show this help message\n"
+            "  exit or quit - Exit the application"
+        )
 
     def handle_command(self, raw_input):
         """
@@ -68,7 +83,11 @@ class ShiftBriefCLI:
         # TODO: Parse the command and payload.
         # TODO: Route supported commands.
         # TODO: Return helpful messages for errors and unknown commands.
-        pass
+        if raw_input is None or isinstance(raw_input, str) == False or raw_input.strip() == "":
+            return "Input Error: Command cannot be blank."
+        command_parts = raw_input.strip().split(" ", 1)
+        command = command_parts[0].lower()
+        payload = command_parts[1] if len(command_parts) > 1 else ""
 
     def run(self):
         """
@@ -84,7 +103,16 @@ class ShiftBriefCLI:
         """
         # TODO: Display welcome text.
         # TODO: Run the input loop.
-        pass
+        print("Welcome to the Shift Handoff Brief CLI!")
+        while self.running:
+            try:
+                user_input = input("> ")
+                response = self.handle_command(user_input)
+                if response:
+                    print(response)
+            except EOFError:
+                print("\nExiting the application.")
+                break
 
 
 def main():
